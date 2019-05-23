@@ -1,10 +1,28 @@
+body
+{
+    background-image: url(image/arene.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+}
+
 #main_container
 {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 40px;
     border: 2mm ridge lightblue;
     padding: 50px;
+    z-index: 1;
+    background-color: white;
+}
+
+#gameAudio
+{
+    display: flex;
+    flex-direction: column;
 }
 
 #main_game
@@ -33,7 +51,6 @@
 .wall
 {
     background-color: black;
-    z-index: 3;
 }
 
 .case
@@ -50,19 +67,48 @@
     background-color: grey;
 }
 
+/* Style des Armes */
+
+.weapon
+{
+    z-index: 5;
+}
+
+.couteau
+{
+    background-image: url("image/couteau.png");
+}
+
+.fusil
+{
+    background-image: url("image/fusil.png");
+}
+
+.fusilaPompe
+{
+    background-image: url("image/fusilapompe.png");
+}
+
+.lanceRoquette
+{
+    background-image: url("image/lanceroquette.png");
+}
+
+/* Style des Joueurs */
+
+.player
+{
+    z-index: 6;
+}
+
 .playerOne
 {
     background-image: url("image/joueurUn.png");
-    z-index: 2;
 }
 
 .playerTwo
 {
     background-image: url("image/joueurDeux.png");
-    z-index: 2;
 }
 
-.weapon
-{
-    z-index: 1;
-}
+

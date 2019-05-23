@@ -57,7 +57,7 @@ let game = {
             } while (!maCase.hasClass("vide")) // tant que ma case n'est pas vide
 
             maCase.removeClass('vide');
-            maCase.css('background-image', `url('${arme[i].style}')`).addClass(arme[i].nom + " weapon");
+            maCase.addClass(arme[i].nom + " weapon");
 
         }
 
@@ -156,13 +156,12 @@ let game = {
 
     },
 
-
-    /* playerStat: function (stat)
-     {
-     let joueur = $('<h2>').appendTo($('#main_info')).html(`Joueur ${stat.nombre}`).css('color', 'blue');
-     let joueurNom = $('<h3>').insertAfter(joueur).html(`Nom: ${stat.nom}`);
-     let joueurArme = $('<h3>').insertAfter(joueurNom).html(`Arme: ${stat.arme}`);
-     let joueurVie = $('<h3>').insertAfter(joueurArme).html(`Vie: ${stat.vie} <br/><br/>`);
-     }*/
+    playerStat: function (stat)
+    {
+        let joueur = $('<h2>').appendTo($('#main_info')).html(`${stat.nom}`).css('color', 'blue');
+        let joueurArme = $('<h3>').addClass(`joueurArme${stat.nombre}`).insertAfter(joueur).html(`Arme: ${stat.arme}`);
+        let degatsArme = $('<h3>').addClass(`degatsArme${stat.nombre}`).insertAfter(joueurArme).html(`Degats Arme: ${stat.degatsArme}`);
+        let joueurVie = $('<h3>').addClass(`joueurVie{stat.nombre}`).insertAfter(degatsArme).html(`Vie: ${stat.vie} <br/><br/>`);
+    }
 
 };

@@ -81,6 +81,45 @@ let gameFunction = {
 
         }
 
+    },
+
+    playerDisplacement: function (firstPlayer, secondPlayer, thisCase) {
+
+        let activePlayer = $("#main_game").find(".activePlayer");
+
+        thisCase.addClass(`${firstPlayer} player`).removeClass("vide");
+        activePlayer.removeClass(`${firstPlayer} player activePlayer`);
+        $(`.${secondPlayer}`).addClass("activePlayer");
+
+    },
+
+    playerWeapon: function (Player, number, stat, weapon) {
+
+        if ($(`.${Player}`).hasClass("fusil"))
+        {
+            stat.arme = weapon[0].nom;
+            console.log(weapon);
+            $(`.joueurArme${number}`).html(`Arme: ${weapon[0].nom}`);
+            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[0].degats}`);
+            
+
+        } else if ($(".playerOne").hasClass("fusilaPompe")) {
+
+            stat.arme = weapon[1].nom;
+            $(`.joueurArme${number}`).html(`Arme: ${weapon[1].nom}`);
+            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[1].degats}`);
+            
+
+        } else if ($(".playerOne").hasClass("lanceRoquette")) {
+
+            stat.arme = weapon[2].nom;
+            $(`.joueurArme${number}`).html(`Arme: ${weapon[2].nom}`);
+            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[2].degats}`);
+            
+
+        }
     }
+    
+    
 
 };

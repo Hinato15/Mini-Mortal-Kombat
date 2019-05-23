@@ -1,7 +1,6 @@
 class Weapons {
-    constructor(nom, degats, style) {
+    constructor(nom, degats) {
         this.nom = nom;
         this.degats = degats;
-        this.style = style;
     }
 }
