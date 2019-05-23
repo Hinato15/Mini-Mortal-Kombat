@@ -37,8 +37,8 @@ $(document).ready(function () {
      
      /* Placement des Joueurs */
 
-    let playerOne = new Player("One", "./css/image/joueurUn.png");
-    let playerTwo = new Player("Two", "./css/image/joueurDeux.png");
+    let playerOne = new Player("One");
+    let playerTwo = new Player("Two");
 
     let tabPlayers = [];
 
@@ -49,10 +49,36 @@ $(document).ready(function () {
     /* Placement des Cases de deplacements des Joueurs */
 
     game.selectMoveBox();
-    
-    /* Mouvement des Joueurs */
-    
-    game.movePlayer();
+
+
 
 });
 
+/* Mouvement des Joueurs */
+
+$(document).on("click", ".move", function () {
+    
+    let activePlayer = $("#main_game").find(".activePlayer");
+    
+    
+
+    
+    
+    $(".move").removeClass("move");
+    
+    
+    
+    
+    if($(".activePlayer").hasClass("playerOne"))
+    {
+        $(this).addClass("playerOne player").removeClass("vide");
+        activePlayer.removeClass("playerOne player activePlayer").addClass("vide");
+        $(".playerTwo").addClass("activePlayer");
+    } else {
+        $(this).addClass("playerTwo player").removeClass("vide");
+        activePlayer.removeClass("playerTwo player activePlayer").addClass("vide");
+         $(".playerOne").addClass("activePlayer");
+    }
+    
+    game.selectMoveBox();
+});

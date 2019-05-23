@@ -122,7 +122,7 @@ let game = {
             }
 
             maCase.removeClass('vide');
-            maCase.css('background-image', `url('${player[i].style}')`).addClass(`player${player[i].classe}` + " player");
+            maCase.addClass(`player${player[i].classe}` + " player");
             $(".playerOne").addClass("activePlayer");
 
         }
@@ -155,14 +155,6 @@ let game = {
         gameFunction.verticalDisplacement("-");
 
     },
-
-    movePlayer: function () {
-
-        $(".move").click(function () {
-
-            $(this).css("background-color", "red");
-        });
-    }
 
 
     /* playerStat: function (stat)

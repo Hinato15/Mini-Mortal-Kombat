@@ -25,7 +25,7 @@ let gameFunction = {
                     break;
 
                 } else {
-                    $(`#${result}`).css("background-color", "grey").addClass("move");
+                    $(`#${result}`).addClass("move");
                 }
 
             } else {
@@ -73,7 +73,7 @@ let gameFunction = {
 
                 } else {
 
-                    $(`#${result}`).css("background-color", "grey").addClass("move");
+                    $(`#${result}`).addClass("move");
                 }
             } else {
                 break;
