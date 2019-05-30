@@ -15,12 +15,7 @@ body
     margin-top: 40px;
     padding: 50px;
     z-index: 1;
-}
-
-#gameAudio
-{
-    display: flex;
-    flex-direction: column;
+    position: relative;
 }
 
 #main_game
@@ -78,6 +73,14 @@ span
 {
     color: red;
     font-weight: bold;
+}
+
+.fatality
+{
+    position: absolute;
+    top: 80px;
+    z-index: 10;
+    display: none;
 }
 
 /* Style des Armes */

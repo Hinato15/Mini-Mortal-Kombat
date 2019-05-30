@@ -17,9 +17,9 @@ $(document).ready(function () {
 
     let couteau = new Weapons("couteau", 10);
 
-    let fusil = new Weapons("fusil", 15);
-    let fusilaPompe = new Weapons("fusilaPompe", 20);
-    let lanceRoquette = new Weapons("lanceRoquette", 25);
+    let fusil = new Weapons("fusil", 20);
+    let fusilaPompe = new Weapons("fusilaPompe", 30);
+    let lanceRoquette = new Weapons("lanceRoquette", 40);
 
     let tabWeapons = [];
 
@@ -61,25 +61,25 @@ $(document).ready(function () {
     /* Action au click sur une des cases de déplacement */
 
     $(document).on("click", ".move", function () {
-        
-         $(".move").removeClass("move");
-         
-           /* Deplacement des Joueurs */
-        
-             if ($(".activePlayer").hasClass("playerOne"))
+
+        $(".move").removeClass("move");
+
+        /* Deplacement des Joueurs */
+
+        if ($(".activePlayer").hasClass("playerOne"))
         {
             gameFunction.playerDisplacement("playerOne", "playerTwo", $(this));
         } else {
             gameFunction.playerDisplacement("playerTwo", "playerOne", $(this));
         }
 
-       
 
-      
 
-        
-        
-            let idPlayer = parseInt($(".playerOne").attr("id"));
+
+
+
+
+        let idPlayer = parseInt($(".playerOne").attr("id"));
 
 
         /* Action au ramassage des armes */
@@ -89,18 +89,18 @@ $(document).ready(function () {
 
 
         } else {
-            
-                /* Joueur 1 */
-              
-                    
-             
-           
-                if ($(".activePlayer").hasClass("fusil") && $(".playerOne").hasClass("fusil"))
+
+            /* Joueur 1 */
+
+
+
+
+            if ($(".activePlayer").hasClass("fusil") && $(".playerOne").hasClass("fusil"))
             {
 
                 $(".playerOne").removeClass("fusil").addClass($(".joueurArme1").html());
 
-              // playerStatOne.arme = fusil.nom;
+                // playerStatOne.arme = fusil.nom;
                 $(".joueurArme1").html(fusil.nom);
                 $(".degatsArme1").html(fusil.degats);
 
@@ -108,7 +108,7 @@ $(document).ready(function () {
 
                 $(".playerOne").removeClass("fusilaPompe").addClass($(".joueurArme1").html());
 
-              //  playerStatOne.arme = fusilaPompe.nom;
+                //  playerStatOne.arme = fusilaPompe.nom;
                 $(".joueurArme1").html(fusilaPompe.nom);
                 $(".degatsArme1").html(fusilaPompe.degats);
 
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
                 $(".playerOne").removeClass("lanceRoquette").addClass($(".joueurArme1").html());
 
-               // playerStatOne.arme = lanceRoquette.nom;
+                // playerStatOne.arme = lanceRoquette.nom;
                 $(".joueurArme1").html(lanceRoquette.nom);
                 $(".degatsArme1").html(lanceRoquette.degats);
 
@@ -127,18 +127,18 @@ $(document).ready(function () {
 
                 $(".playerOne").removeClass("couteau").addClass($(".joueurArme1").html());
 
-              //  playerStatOne.arme = lanceRoquette.nom;
+                //  playerStatOne.arme = lanceRoquette.nom;
                 $(".joueurArme1").html(couteau.nom);
                 $(".degatsArme1").html(couteau.degats);
 
             }
-           
 
 
-            
 
 
-            
+
+
+
 
 
 
@@ -152,7 +152,7 @@ $(document).ready(function () {
                 $(".playerTwo").removeClass("fusil").addClass($(".joueurArme2").html());
 
 
-              //  playerStatTwo.arme = fusil.nom;
+                //  playerStatTwo.arme = fusil.nom;
                 $(".joueurArme2").html(fusil.nom);
                 $(".degatsArme2").html(fusil.degats);
 
@@ -164,7 +164,7 @@ $(document).ready(function () {
                 $(".playerTwo").removeClass("fusilaPompe").addClass($(".joueurArme2").html());
 
 
-              //  playerStatTwo.arme = fusilaPompe.nom;
+                //  playerStatTwo.arme = fusilaPompe.nom;
                 $(".joueurArme2").html(fusilaPompe.nom);
                 $(".degatsArme2").html(fusilaPompe.degats);
 
@@ -192,8 +192,8 @@ $(document).ready(function () {
 
                 //  $(".playerTwo").removeClass($(".joueurArme2").html());
             }
-            
-       
+
+
             game.selectMoveBox();
 
         }

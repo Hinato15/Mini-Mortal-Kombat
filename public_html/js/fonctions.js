@@ -116,9 +116,20 @@ let gameFunction = {
     },
 
     playerFight: function (firstPlayer, secondPlayer, attackOne, attackTwo, defenceOne, denfenceTwo, weaponDamage, playerLife) {
-        
-        ("playerOne", "playerTwo", "attaque1", "defense1", "joueurVie1")
 
+        /* Audio */
+
+        let attaqueSon1 = new Audio('./css/audio/attaque1.mp3');
+        let attaqueSon2 = new Audio('./css/audio/attaque2.mp3');
+        let defenseSon1 = new Audio('./css/audio/defense1.mp3');
+        let defenseSon2 = new Audio('./css/audio/defense2.mp3');
+        let fatality = new Audio('./css/audio/fatality.mp3');
+
+
+
+        // (".playerOne", ".playerTwo", ".attaque1", ".defense1", ".joueurVie1")
+
+        /* On selectionne le joueur actif */
 
         if ($(`.${firstPlayer}`).hasClass("activePlayer"))
         {
@@ -129,12 +140,68 @@ let gameFunction = {
             $(".defense2").show();
         }
 
+        /* Bouton de defense */
+
+        let getDefense = false;
+
+
+        $(".defense1").click(function () {
+
+            defenseSon1.play();
+
+            getDefense = true;
+
+            $(".playerOne").removeClass("activePlayer");
+            $(".playerTwo").addClass("activePlayer");
+
+            $(".attaque1").hide();
+            $(".defense1").hide();
+
+
+            $(".attaque2").show();
+            $(".defense2").show();
+
+
+
+        });
+
+        $(".defense2").click(function () {
+
+            defenseSon2.play();
+
+            getDefense = true;
+
+            $(".playerTwo").removeClass("activePlayer");
+            $(".playerOne").addClass("activePlayer");
+
+            $(".attaque2").hide();
+            $(".defense2").hide();
+
+
+            $(".attaque1").show();
+            $(".defense1").show();
+
+        });
+
+
+
+
+        /* Bouton d'Attaque */
+
+
+
         $(".attaque1").click(function () {
 
-            // stat de vie
+            attaqueSon1.play();
 
             let lifeOpponent = $(".joueurVie2").html();
             let weaponDamage = $(".degatsArme1").html();
+
+            if (getDefense === true)
+            {
+                weaponDamage = weaponDamage / 2;
+                getDefense = false;
+            }
 
             let newLife = lifeOpponent - weaponDamage;
 
@@ -148,7 +215,10 @@ let gameFunction = {
 
             if (parseInt($(".joueurVie2").html()) <= 0)
             {
-                alert("Victoire");
+                $(".fatality").show("slow");
+                fatality.play();
+
+
             } else {
                 $(".attaque2").show();
                 $(".defense2").show();
@@ -161,8 +231,17 @@ let gameFunction = {
 
 
         $(".attaque2").click(function () {
+
+            attaqueSon2.play();
+
             let lifeOpponent = $(".joueurVie1").html();
             let weaponDamage = $(".degatsArme2").html();
+
+            if (getDefense === true)
+            {
+                weaponDamage = weaponDamage / 2;
+                getDefense = false;
+            }
 
             let newLife = lifeOpponent - weaponDamage;
 
@@ -177,7 +256,8 @@ let gameFunction = {
 
             if (parseInt($(".joueurVie1").html()) <= 0)
             {
-                alert("Victoire");
+                $(".fatality").show("slow");
+                fatality.play();
             } else {
                 $(".attaque1").show();
                 $(".defense1").show();
