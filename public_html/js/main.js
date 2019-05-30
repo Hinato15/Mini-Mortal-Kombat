@@ -26,8 +26,8 @@ $(document).ready(function () {
     tabWeapons.push(fusil, fusilaPompe, lanceRoquette);
 
     game.generateWeapons(tabWeapons);
-     
-     /* Placement des Joueurs */
+
+    /* Placement des Joueurs */
 
     let playerOne = new Player("One", 100);
     let playerTwo = new Player("Two", 100);
@@ -37,113 +37,166 @@ $(document).ready(function () {
     tabPlayers.push(playerOne, playerTwo);
 
     game.generatePlayer(tabPlayers);
-    
+
     /* Generation des Stats */
 
-     let playerStatOne = new playerStat(1, "Valentin", couteau.nom, couteau.degats, playerOne.vie);
-     let playerStatTwo = new playerStat(2, "Alan", couteau.nom, couteau.degats, playerTwo.vie);
-     
-     game.playerStat(playerStatOne);
-     game.playerStat(playerStatTwo);
+    let playerStatOne = new playerStat(1, "Valentin", couteau.nom, couteau.degats, playerOne.vie);
+    let playerStatTwo = new playerStat(2, "Alan", couteau.nom, couteau.degats, playerTwo.vie);
+
+    game.playerStat(playerStatOne);
+    game.playerStat(playerStatTwo);
 
     /* Placement des Cases de deplacements des Joueurs */
 
     game.selectMoveBox();
 
+    /* Fonction de combat */
 
 
-/* Mouvement des Joueurs */
 
-$(document).on("click", ".move", function () {
-    
-    let activePlayer = $("#main_game").find(".activePlayer");
-    
-    $(".move").removeClass("move");
-    
-    /* Deplacement des Joueurs */
-    
-    
-    if($(".activePlayer").hasClass("playerOne"))
-    {
-        $(this).addClass("playerOne player").removeClass("vide");
-        activePlayer.removeClass("playerOne player activePlayer");
-        $(".playerTwo").addClass("activePlayer");
-        
-      //  gameFunction.playerDisplacement("playerOne","playerTwo",$(this));
-    } else {
-        $(this).addClass("playerTwo player").removeClass("vide");
-        activePlayer.removeClass("playerTwo player activePlayer");
-         $(".playerOne").addClass("activePlayer");
-        
-      //  gameFunction.playerDisplacement("playerTwo","playerOne",$(this));
-    }
-    
-    game.selectMoveBox();
-    
-    /* Action Arme */
-    
-    /* Joueur 1 */
-    
-    if($(".playerOne").hasClass("fusil"))
-    {
-          playerStatOne.arme = fusil.nom;
-          $(".joueurArme1").html(`Arme: ${fusil.nom}`);
-          $(".degatsArme1").html(`Degats Arme: ${fusil.degats}`);
-          
-          $(this).removeClass("fusil").addClass("couteau");
-          
-    } else if ($(".playerOne").hasClass("fusilaPompe")) {
-        
-        playerStatOne.arme = fusilaPompe.nom;
-          $(".joueurArme1").html(`Arme: ${fusilaPompe.nom}`);
-          $(".degatsArme1").html(`Degats Arme: ${fusilaPompe.degats}`);
-          
-          $(this).removeClass("fusilaPompe").addClass("couteau");
-        
-    }  else if ($(".playerOne").hasClass("lanceRoquette")) {
-        
-        playerStatOne.arme = lanceRoquette.nom;
-          $(".joueurArme1").html(`Arme: ${lanceRoquette.nom}`);
-          $(".degatsArme1").html(`Degats Arme: ${lanceRoquette.degats}`);
-          
-          $(this).removeClass("lanceRoquette").addClass("couteau");
-          
-        
-    }
-    
-   // gameFunction.playerWeapon("playerOne", "1", playerStatOne, tabWeapons);
-    
-    /* Joueur 2 */
-    
-    if($(".playerTwo").hasClass("fusil"))
-    {
-          playerStatOne.arme = fusil.nom;
-          $(".joueurArme2").html(`Arme: ${fusil.nom}`);
-          $(".degatsArme2").html(`Degats Arme: ${fusil.degats}`);
-          
-          $(this).removeClass("fusil").addClass("couteau");
-          
-    } else if ($(".playerTwo").hasClass("fusilaPompe")) {
-        
-        playerStatOne.arme = fusilaPompe.nom;
-          $(".joueurArme2").html(`Arme: ${fusilaPompe.nom}`);
-          $(".degatsArme2").html(`Degats Arme: ${fusilaPompe.degats}`);
-          
-          $(this).removeClass("fusilaPompe").addClass("couteau");
-        
-    }  else if ($(".playerTwo").hasClass("lanceRoquette")) {
-        
-        playerStatOne.arme = lanceRoquette.nom;
-          $(".joueurArme2").html(`Arme: ${lanceRoquette.nom}`);
-          $(".degatsArme2").html(`Degats Arme: ${lanceRoquette.degats}`);
-          
-          $(this).removeClass("lanceRoquette").addClass("couteau");
-        
-    }
-    
-    
-    
-    
-});
 
+
+
+
+    /* Action au click sur une des cases de déplacement */
+
+    $(document).on("click", ".move", function () {
+        
+         $(".move").removeClass("move");
+         
+           /* Deplacement des Joueurs */
+        
+             if ($(".activePlayer").hasClass("playerOne"))
+        {
+            gameFunction.playerDisplacement("playerOne", "playerTwo", $(this));
+        } else {
+            gameFunction.playerDisplacement("playerTwo", "playerOne", $(this));
+        }
+
+       
+
+      
+
+        
+        
+            let idPlayer = parseInt($(".playerOne").attr("id"));
+
+
+        /* Action au ramassage des armes */
+        if (($(`#${idPlayer + 1}`).hasClass("playerTwo")) || ($(`#${idPlayer - 1}`).hasClass("playerTwo")) || ($(`#${idPlayer + 10}`).hasClass("playerTwo")) || ($(`#${idPlayer - 10}`).hasClass("playerTwo")))
+        {
+            gameFunction.playerFight();
+
+
+        } else {
+            
+                /* Joueur 1 */
+              
+                    
+             
+           
+                if ($(".activePlayer").hasClass("fusil") && $(".playerOne").hasClass("fusil"))
+            {
+
+                $(".playerOne").removeClass("fusil").addClass($(".joueurArme1").html());
+
+              // playerStatOne.arme = fusil.nom;
+                $(".joueurArme1").html(fusil.nom);
+                $(".degatsArme1").html(fusil.degats);
+
+            } else if ($(".activePlayer").hasClass("fusilaPompe") && $(".playerOne").hasClass("fusilaPompe")) {
+
+                $(".playerOne").removeClass("fusilaPompe").addClass($(".joueurArme1").html());
+
+              //  playerStatOne.arme = fusilaPompe.nom;
+                $(".joueurArme1").html(fusilaPompe.nom);
+                $(".degatsArme1").html(fusilaPompe.degats);
+
+
+
+
+            } else if ($(".activePlayer").hasClass("lanceRoquette") && $(".playerOne").hasClass("lanceRoquette")) {
+
+                $(".playerOne").removeClass("lanceRoquette").addClass($(".joueurArme1").html());
+
+               // playerStatOne.arme = lanceRoquette.nom;
+                $(".joueurArme1").html(lanceRoquette.nom);
+                $(".degatsArme1").html(lanceRoquette.degats);
+
+            } else if ($(".activePlayer").hasClass("couteau") && $(".playerOne").hasClass("couteau")) {
+
+                $(".playerOne").removeClass("couteau").addClass($(".joueurArme1").html());
+
+              //  playerStatOne.arme = lanceRoquette.nom;
+                $(".joueurArme1").html(couteau.nom);
+                $(".degatsArme1").html(couteau.degats);
+
+            }
+           
+
+
+            
+
+
+            
+
+
+
+            // gameFunction.playerWeapon("playerOne", "1", playerStatOne, tabWeapons);
+
+            /* Joueur 2 */
+
+
+            if ($(".playerTwo").hasClass("fusil") && $(".activePlayer").hasClass("fusil"))
+            {
+                $(".playerTwo").removeClass("fusil").addClass($(".joueurArme2").html());
+
+
+              //  playerStatTwo.arme = fusil.nom;
+                $(".joueurArme2").html(fusil.nom);
+                $(".degatsArme2").html(fusil.degats);
+
+                //   $(".playerTwo").removeClass($(".joueurArme2").html());
+
+
+            } else if ($(".playerTwo").hasClass("fusilaPompe") && $(".activePlayer").hasClass("fusilaPompe")) {
+
+                $(".playerTwo").removeClass("fusilaPompe").addClass($(".joueurArme2").html());
+
+
+              //  playerStatTwo.arme = fusilaPompe.nom;
+                $(".joueurArme2").html(fusilaPompe.nom);
+                $(".degatsArme2").html(fusilaPompe.degats);
+
+                //   $(".playerTwo").removeClass($(".joueurArme2").html());
+
+
+            } else if ($(".playerTwo").hasClass("lanceRoquette") && $(".activePlayer").hasClass("lanceRoquette")) {
+
+                $(".playerTwo").removeClass("lanceRoquette").addClass($(".joueurArme2").html());
+
+
+                //playerStatTwo.arme = lanceRoquette.nom;
+                $(".joueurArme2").html(lanceRoquette.nom);
+                $(".degatsArme2").html(lanceRoquette.degats);
+
+                // $(".playerTwo").removeClass($(".joueurArme2").html());
+
+
+            } else if ($(".playerTwo").hasClass("couteau") && $(".activePlayer").hasClass("couteau")) {
+                $(".playerTwo").removeClass("couteau").addClass($(".joueurArme2").html());
+
+                //  playerStatOne.arme = lanceRoquette.nom;
+                $(".joueurArme2").html(couteau.nom);
+                $(".degatsArme2").html(couteau.degats);
+
+                //  $(".playerTwo").removeClass($(".joueurArme2").html());
+            }
+            
+       
+            game.selectMoveBox();
+
+        }
+
+    });
 });

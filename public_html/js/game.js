@@ -132,25 +132,19 @@ let game = {
 
     selectMoveBox: function () {
 
-
         /* ------------------------------------ */
-
 
         gameFunction.lateralDisplacement("+");
 
         /* ------------------------------------ */
 
-
         gameFunction.lateralDisplacement("-");
 
         /* ------------------------------------ */
 
-
         gameFunction.verticalDisplacement("+");
 
-
         /* ------------------------------------ */
-
 
         gameFunction.verticalDisplacement("-");
 
@@ -159,9 +153,24 @@ let game = {
     playerStat: function (stat)
     {
         let joueur = $('<h2>').appendTo($('#main_info')).html(`${stat.nom}`).css('color', 'blue');
-        let joueurArme = $('<h3>').addClass(`joueurArme${stat.nombre}`).insertAfter(joueur).html(`Arme: ${stat.arme}`);
-        let degatsArme = $('<h3>').addClass(`degatsArme${stat.nombre}`).insertAfter(joueurArme).html(`Degats Arme: ${stat.degatsArme}`);
-        let joueurVie = $('<h3>').addClass(`joueurVie{stat.nombre}`).insertAfter(degatsArme).html(`Vie: ${stat.vie} <br/><br/>`);
+
+        let joueurArmeText = $('<h3>').insertAfter(joueur).html(`--- Arme ---`);
+        let joueurArme = $('<span>').addClass(`joueurArme${stat.nombre}`).insertAfter(joueurArmeText).html(`${stat.arme}`);
+
+
+        let degatsArmeText = $('<h3>').insertAfter(joueurArme).html("--- Degats de l'Arme ---");
+        $('<hr/>').insertBefore(degatsArmeText);
+        let degatsArme = $('<span>').addClass(`degatsArme${stat.nombre}`).insertAfter(degatsArmeText).html(`${stat.degatsArme}`);
+        
+        let joueurVieText = $('<h3>').insertAfter(degatsArme).html("--- Vie ---");
+        $('<hr/>').insertBefore(joueurVieText);
+        let joueurVie = $('<span>').addClass(`joueurVie${stat.nombre}`).insertAfter(joueurVieText).html(`${stat.vie}`);
+
+        let containButton = $('<div>').addClass('containButton').insertAfter(joueurVie);
+        $('<hr/>').insertBefore(containButton);
+        
+        let boutonAttaque = $('<button>').addClass(`attaque${stat.nombre}`).appendTo(containButton).html("Attaque").hide();
+        let boutonDefense = $('<button>').addClass(`defense${stat.nombre}`).insertAfter(boutonAttaque).html("Defense").hide();
     }
 
 };

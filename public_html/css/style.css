@@ -13,10 +13,8 @@ body
     justify-content: space-around;
     flex-wrap: wrap;
     margin-top: 40px;
-    border: 2mm ridge lightblue;
     padding: 50px;
     z-index: 1;
-    background-color: white;
 }
 
 #gameAudio
@@ -29,28 +27,30 @@ body
 {
     margin: auto;
     width: 500px;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    background-color: white;
+    border-radius: 50px;
 }
 
 #main_info
 {
-    width: 700px;
-    height: 700px;
-    border: 2px solid #10ADED;
-    border-radius: 30px;
+    width: 600px;
+    height: 750px;
     margin-right: 100px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: white;
+    border-radius: 50px;
 }
 
 .wall
 {
-    background-color: black;
+    background-image: url('image/wall bleu.png');
 }
 
 .case
@@ -64,7 +64,20 @@ body
 
 .move
 {
-    background-color: grey;
+    -webkit-box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,1);
+    -moz-box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,1);
+    box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,1);
+}
+
+hr
+{
+    width: 60%;
+}
+
+span
+{
+    color: red;
+    font-weight: bold;
 }
 
 /* Style des Armes */
