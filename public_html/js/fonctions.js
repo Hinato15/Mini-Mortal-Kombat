@@ -91,27 +91,32 @@ let gameFunction = {
 
     },
 
-    playerWeapon: function (Player, number, stat, weapon) {
+    playerWeapon: function (joueurArme, degatsArme, thisCase) {
 
-        if ($(`.${Player}`).hasClass("fusil"))
+        if (thisCase.hasClass("fusil"))
         {
-            stat.arme = weapon[0].nom;
-            console.log(weapon);
-            $(`.joueurArme${number}`).html(`Arme: ${weapon[0].nom}`);
-            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[0].degats}`);
-
-        } else if ($(".playerOne").hasClass("fusilaPompe")) {
-
-            stat.arme = weapon[1].nom;
-            $(`.joueurArme${number}`).html(`Arme: ${weapon[1].nom}`);
-            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[1].degats}`);
-
-        } else if ($(".playerOne").hasClass("lanceRoquette")) {
-
-            stat.arme = weapon[2].nom;
-            $(`.joueurArme${number}`).html(`Arme: ${weapon[2].nom}`);
-            $(`.degatsArme${number}`).html(`Degats Arme: ${weapon[2].degats}`);
-
+            thisCase.addClass($(joueurArme).html());
+            $(joueurArme).html("fusil");
+            $(degatsArme).html("20");
+            thisCase.removeClass("fusil");
+        } else if (thisCase.hasClass("fusilaPompe"))
+        {
+            thisCase.addClass($(joueurArme).html());
+            $(joueurArme).html("fusilaPompe");
+            $(degatsArme).html("30");
+            thisCase.removeClass("fusilaPompe");
+        } else if (thisCase.hasClass("lanceRoquette"))
+        {
+            thisCase.addClass($(joueurArme).html());
+            $(joueurArme).html("lanceRoquette");
+            $(degatsArme).html("40");
+            thisCase.removeClass("lanceRoquette");
+        } else if (thisCase.hasClass("couteau"))
+        {
+            thisCase.addClass($(joueurArme).html());
+            $(joueurArme).html("couteau");
+            $(degatsArme).html("10");
+            thisCase.removeClass("couteau");
         }
     },
 

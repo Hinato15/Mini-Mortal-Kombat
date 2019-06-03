@@ -169,8 +169,8 @@ let game = {
         let containButton = $('<div>').addClass('containButton').insertAfter(joueurVie);
         $('<hr/>').insertBefore(containButton);
         
-        let boutonAttaque = $('<button>').addClass(`attaque${stat.nombre}`).appendTo(containButton).html("Attaque").hide();
-        let boutonDefense = $('<button>').addClass(`defense${stat.nombre}`).insertAfter(boutonAttaque).html("Defense").hide();
+        let boutonAttaque = $('<button>').addClass(`attaque${stat.nombre} combatBouttonA`).appendTo(containButton).html("Attaque").hide();
+        let boutonDefense = $('<button>').addClass(`defense${stat.nombre} combatBouttonB`).insertAfter(boutonAttaque).html("Defense").hide();
     }
 
 };

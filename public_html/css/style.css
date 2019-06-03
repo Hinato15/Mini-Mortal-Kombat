@@ -5,6 +5,7 @@ body
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 0;
+    font-family: 'Audiowide', cursive;
 }
 
 #main_container
@@ -16,6 +17,14 @@ body
     padding: 50px;
     z-index: 1;
     position: relative;
+}
+
+#logo_container
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: -20px;
 }
 
 #main_game
@@ -33,7 +42,7 @@ body
 #main_info
 {
     width: 600px;
-    height: 750px;
+    height: 800px;
     margin-right: 100px;
     text-align: center;
     display: flex;
@@ -73,6 +82,33 @@ span
 {
     color: red;
     font-weight: bold;
+}
+
+.containButton
+{
+    display: flex;
+    justify-content: center;
+}
+
+.combatBouttonA
+{
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    background-color: red;
+    outline: none;
+    margin-right: 40px;
+    font-family: 'Audiowide', cursive;
+}
+
+.combatBouttonB
+{
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    background-color: green;
+    outline: none;
+    font-family: 'Audiowide', cursive;
 }
 
 .fatality
@@ -127,4 +163,11 @@ span
     background-image: url("image/joueurDeux.png");
 }
 
-
+@media screen and (max-width: 1372px)
+{
+    #main_info
+    {
+        margin-right: 0px;
+        margin-top: 50px;
+    }
+}
