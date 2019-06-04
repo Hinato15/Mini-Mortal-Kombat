@@ -31,7 +31,7 @@ let game = {
 
             } while (!maCase.hasClass("vide")) // tant que ma case n'est pas vide
 
-            // j'ajoute wall Ã  la case et j'enleve vide
+            // Ajout de  wall à la case et j'enleve vide
             maCase.addClass('wall');
             maCase.removeClass('vide');
 
@@ -79,6 +79,9 @@ let game = {
                 maCase = $(`#${indexMaCase}`);
 
             } while (!maCase.hasClass("vide")) // tant que ma case n'est pas vide
+
+
+            /* Je verifie que les deux joueurs ne sont pas cote à cote */
 
 
             /* ------------------------------------ */
@@ -130,6 +133,8 @@ let game = {
 
     },
 
+    /* Place les cases de déplacement des joueurs */
+
     selectMoveBox: function () {
 
         /* ------------------------------------ */
@@ -150,6 +155,8 @@ let game = {
 
     },
 
+    /* Affiche les stats des joueurs */
+
     playerStat: function (stat)
     {
         let joueur = $('<h2>').appendTo($('#main_info')).html(`${stat.nom}`).css('color', 'blue');
@@ -161,14 +168,14 @@ let game = {
         let degatsArmeText = $('<h3>').insertAfter(joueurArme).html("--- Degats de l'Arme ---");
         $('<hr/>').insertBefore(degatsArmeText);
         let degatsArme = $('<span>').addClass(`degatsArme${stat.nombre}`).insertAfter(degatsArmeText).html(`${stat.degatsArme}`);
-        
+
         let joueurVieText = $('<h3>').insertAfter(degatsArme).html("--- Vie ---");
         $('<hr/>').insertBefore(joueurVieText);
         let joueurVie = $('<span>').addClass(`joueurVie${stat.nombre}`).insertAfter(joueurVieText).html(`${stat.vie}`);
 
         let containButton = $('<div>').addClass('containButton').insertAfter(joueurVie);
         $('<hr/>').insertBefore(containButton);
-        
+
         let boutonAttaque = $('<button>').addClass(`attaque${stat.nombre} combatBouttonA`).appendTo(containButton).html("Attaque").hide();
         let boutonDefense = $('<button>').addClass(`defense${stat.nombre} combatBouttonB`).insertAfter(boutonAttaque).html("Defense").hide();
     }

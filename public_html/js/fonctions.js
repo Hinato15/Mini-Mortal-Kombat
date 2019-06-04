@@ -1,5 +1,7 @@
 let gameFunction = {
 
+    /* Gere le deplacement lateral des joueurs */
+
     lateralDisplacement: function (signe) {
 
         let activePlayer = $(".activePlayer").attr("id");
@@ -33,6 +35,8 @@ let gameFunction = {
             }
         }
     },
+
+    /* Gere le vertical lateral des joueurs */
 
     verticalDisplacement: function (signe) {
 
@@ -83,6 +87,8 @@ let gameFunction = {
 
     },
 
+    /* Gere le changement de joueur actif */
+
     playerDisplacement: function (firstPlayer, secondPlayer, thisCase) {
 
         thisCase.addClass(`${firstPlayer} player`).removeClass("vide");
@@ -91,188 +97,187 @@ let gameFunction = {
 
     },
 
-    playerWeapon: function (joueurArme, degatsArme, thisCase) {
+    /* On donne l'arme ramassee au joueur et on dépose l'arme qu'il porte actuellement */
 
-        if (thisCase.hasClass("fusil"))
+    playerWeapon: function (joueurArme, degatsArme, thisCase, fusil, fusilaPompe, lanceRoquette, couteau) {
+
+        if (thisCase.hasClass(fusil.nom))
         {
             thisCase.addClass($(joueurArme).html());
-            $(joueurArme).html("fusil");
-            $(degatsArme).html("20");
-            thisCase.removeClass("fusil");
-        } else if (thisCase.hasClass("fusilaPompe"))
+            $(joueurArme).html(fusil.nom);
+            $(degatsArme).html(fusil.degats);
+            thisCase.removeClass(fusil.nom);
+        } else if (thisCase.hasClass(fusilaPompe.nom))
         {
             thisCase.addClass($(joueurArme).html());
-            $(joueurArme).html("fusilaPompe");
-            $(degatsArme).html("30");
-            thisCase.removeClass("fusilaPompe");
-        } else if (thisCase.hasClass("lanceRoquette"))
+            $(joueurArme).html(fusilaPompe.nom);
+            $(degatsArme).html(fusilaPompe.degats);
+            thisCase.removeClass(fusilaPompe.nom);
+        } else if (thisCase.hasClass(lanceRoquette.nom))
         {
             thisCase.addClass($(joueurArme).html());
-            $(joueurArme).html("lanceRoquette");
-            $(degatsArme).html("40");
-            thisCase.removeClass("lanceRoquette");
-        } else if (thisCase.hasClass("couteau"))
+            $(joueurArme).html(lanceRoquette.nom);
+            $(degatsArme).html(lanceRoquette.degats);
+            thisCase.removeClass(lanceRoquette.nom);
+        } else if (thisCase.hasClass(couteau.nom))
         {
             thisCase.addClass($(joueurArme).html());
-            $(joueurArme).html("couteau");
-            $(degatsArme).html("10");
-            thisCase.removeClass("couteau");
+            $(joueurArme).html(couteau.nom);
+            $(degatsArme).html(couteau.degats);
+            thisCase.removeClass(couteau.nom);
         }
     },
 
-    playerFight: function (firstPlayer, secondPlayer, attackOne, attackTwo, defenceOne, denfenceTwo, weaponDamage, playerLife) {
+    /* Gere le combat entre les deux joueurs */
 
-        /* Audio */
+    playerFight: function (firstPlayer) {
 
-        let attaqueSon1 = new Audio('./css/audio/attaque1.mp3');
-        let attaqueSon2 = new Audio('./css/audio/attaque2.mp3');
-        let defenseSon1 = new Audio('./css/audio/defense1.mp3');
-        let defenseSon2 = new Audio('./css/audio/defense2.mp3');
-        let fatality = new Audio('./css/audio/fatality.mp3');
-
-
-
-        // (".playerOne", ".playerTwo", ".attaque1", ".defense1", ".joueurVie1")
 
         /* On selectionne le joueur actif */
 
         if ($(`.${firstPlayer}`).hasClass("activePlayer"))
         {
-            $(".attaque1").show();
-            $(".defense1").show();
+            $(".attaque1, .defense1").show();
         } else {
-            $(".attaque2").show();
-            $(".defense2").show();
+            $(".attaque2, .defense2").show();
         }
 
-        /* Bouton de defense */
+        /* On initialise la defense */
 
         let getDefense = false;
 
+        /* Bouton de defense */
 
         $(".defense1").click(function () {
 
-            defenseSon1.play();
-
             getDefense = true;
 
-            $(".playerOne").removeClass("activePlayer");
-            $(".playerTwo").addClass("activePlayer");
-
-            $(".attaque1").hide();
-            $(".defense1").hide();
-
-
-            $(".attaque2").show();
-            $(".defense2").show();
-
-
-
+            gameFunction.playerDefense("playerOne", "playerTwo",
+                    "attaque1", "defense1", "attaque2", "defense2");
         });
+
 
         $(".defense2").click(function () {
 
-            defenseSon2.play();
-
             getDefense = true;
 
-            $(".playerTwo").removeClass("activePlayer");
-            $(".playerOne").addClass("activePlayer");
-
-            $(".attaque2").hide();
-            $(".defense2").hide();
-
-
-            $(".attaque1").show();
-            $(".defense1").show();
+            gameFunction.playerDefense("playerTwo", "playerOne",
+                    "attaque2", "defense2", "attaque1", "defense1");
 
         });
-
-
 
 
         /* Bouton d'Attaque */
 
-
-
         $(".attaque1").click(function () {
 
-            attaqueSon1.play();
+            gameFunction.playerAttack("joueurArme1", "joueurVie2", "degatsArme1",
+                    "playerOne", "playerTwo", "attaque1", "defense1", "attaque2", "defense2", getDefense);
 
-            let lifeOpponent = $(".joueurVie2").html();
-            let weaponDamage = $(".degatsArme1").html();
-
-            if (getDefense === true)
-            {
-                weaponDamage = weaponDamage / 2;
-                getDefense = false;
-            }
-
-            let newLife = lifeOpponent - weaponDamage;
-
-            $(".joueurVie2").html(newLife);
-
-            $(".playerOne").removeClass("activePlayer");
-            $(".playerTwo").addClass("activePlayer");
-
-            $(".attaque1").hide();
-            $(".defense1").hide();
-
-            if (parseInt($(".joueurVie2").html()) <= 0)
-            {
-                $(".fatality").show("slow");
-                fatality.play();
-
-
-            } else {
-                $(".attaque2").show();
-                $(".defense2").show();
-            }
-
-
+            getDefense = false;
 
         });
-
 
 
         $(".attaque2").click(function () {
 
-            attaqueSon2.play();
+            gameFunction.playerAttack("joueurArme2", "joueurVie1", "degatsArme2",
+                    "playerTwo", "playerOne", "attaque2", "defense2", "attaque1", "defense1", getDefense);
 
-            let lifeOpponent = $(".joueurVie1").html();
-            let weaponDamage = $(".degatsArme2").html();
-
-            if (getDefense === true)
-            {
-                weaponDamage = weaponDamage / 2;
-                getDefense = false;
-            }
-
-            let newLife = lifeOpponent - weaponDamage;
-
-
-            $(".joueurVie1").html(newLife);
-
-            $(".playerTwo").removeClass("activePlayer");
-            $(".playerOne").addClass("activePlayer");
-
-            $(".attaque2").hide();
-            $(".defense2").hide();
-
-            if (parseInt($(".joueurVie1").html()) <= 0)
-            {
-                $(".fatality").show("slow");
-                fatality.play();
-            } else {
-                $(".attaque1").show();
-                $(".defense1").show();
-            }
-
+            getDefense = false;
 
         });
 
+    },
+
+    /* Gere l'attaque pour la fonction playerFight */
+
+    playerAttack: function (joueurArme, joueurVie, degatsArme, playerOne, playerTwo, attackOne, defenseOne, attackTwo, defenseTwo, getDefense) {
+
+        /* Audio */
+
+        let couteau1 = new Audio('./audio/couteau1.mp3');
+        let attaqueSon1 = new Audio('./audio/attaque1.mp3');
+        let attaqueSon2 = new Audio('./audio/attaque2.mp3');
+        let attaqueSon3 = new Audio('./audio/attaque3.mp3');
+
+        let fatality = new Audio('./audio/fatality.mp3');
+
+        if ($(`.${joueurArme}`).html() === "couteau")
+        {
+            couteau1.play();
+
+        } else if ($(`.${joueurArme}`).html() === "fusil") {
+
+            attaqueSon2.play();
+
+        } else if ($(`.${joueurArme}`).html() === "fusilaPompe") {
+
+            attaqueSon1.play();
+
+        } else if ($(`.${joueurArme}`).html() === "lanceRoquette") {
+
+            attaqueSon3.play();
+        }
+
+
+        let lifeOpponent = $(`.${joueurVie}`).html();
+        let weaponDamage = $(`.${degatsArme}`).html();
+
+        if (getDefense === true)
+        {
+            weaponDamage = weaponDamage / 2;
+        }
+
+        let newLife = lifeOpponent - weaponDamage;
+
+        $(`.${joueurVie}`).html(newLife);
+
+        $(`.${playerOne}`).removeClass("activePlayer");
+        $(`.${playerTwo}`).addClass("activePlayer");
+
+        $(`.${attackOne}, .${defenseOne}`).hide();
+
+        if (parseInt($(`.${joueurVie}`).html()) <= 0)
+        {
+            $(".fatality").show("slow");
+            fatality.play();
+
+        } else {
+            $(`.${attackTwo}, .${defenseTwo}`).show();
+        }
+
+    },
+
+    /* Gere la defense pour la fonction playerFight */
+
+    playerDefense: function (playerOne, playerTwo, attackOne, defenseOne, attackTwo, defenseTwo) {
+
+        /* Audio */
+
+        let defenseSon1 = new Audio('./audio/defense1.mp3');
+        let defenseSon2 = new Audio('./audio/defense2.mp3');
+
+        /* Choix du son */
+
+        if ($(".playerOne").hasClass("activePlayer"))
+        {
+            defenseSon1.play();
+
+        } else {
+
+            defenseSon2.play();
+        }
+
+        /* Changement de joueur actif */
+
+        $(`.${playerOne}`).removeClass("activePlayer");
+        $(`.${playerTwo}`).addClass("activePlayer");
+
+        $(`.${attackOne}, .${defenseOne}`).hide();
+
+        $(`.${attackTwo}, .${defenseTwo}`).show();
 
     }
-
 
 };

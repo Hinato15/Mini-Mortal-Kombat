@@ -1,11 +1,13 @@
 body
 {
-    background-image: url(image/arene.jpg);
+    background-image: url(../image/arene.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: 0;
     font-family: 'Audiowide', cursive;
+    margin: 0;
+    padding: 0;
 }
 
 #main_container
@@ -54,7 +56,7 @@ body
 
 .wall
 {
-    background-image: url('image/wall bleu.png');
+    background-image: url('../image/wall bleu.png');
 }
 
 .case
@@ -84,6 +86,8 @@ span
     font-weight: bold;
 }
 
+/* Style des boutons de combat */
+
 .containButton
 {
     display: flex;
@@ -111,12 +115,16 @@ span
     font-family: 'Audiowide', cursive;
 }
 
+/* Image de fin de partie */
+
 .fatality
 {
     position: absolute;
-    top: 80px;
+    top: 20%;
+    left: 5%;
     z-index: 10;
     display: none;
+    width: 90vw;
 }
 
 /* Style des Armes */
@@ -128,22 +136,22 @@ span
 
 .couteau
 {
-    background-image: url("image/couteau.png");
+    background-image: url("../image/couteau.png");
 }
 
 .fusil
 {
-    background-image: url("image/fusil.png");
+    background-image: url("../image/fusil.png");
 }
 
 .fusilaPompe
 {
-    background-image: url("image/fusilapompe.png");
+    background-image: url("../image/fusilapompe.png");
 }
 
 .lanceRoquette
 {
-    background-image: url("image/lanceroquette.png");
+    background-image: url("../image/lanceroquette.png");
 }
 
 /* Style des Joueurs */
@@ -155,13 +163,15 @@ span
 
 .playerOne
 {
-    background-image: url("image/joueurUn.png");
+    background-image: url("../image/joueurUn.png");
 }
 
 .playerTwo
 {
-    background-image: url("image/joueurDeux.png");
+    background-image: url("../image/joueurDeux.png");
 }
+
+/* Responsive */
 
 @media screen and (max-width: 1372px)
 {

@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     /* Recuperation des noms des joueurs */
 
-    //  let playerOneName = prompt("Entrer le nom du joueur 1");
-    //  let playerTwoName = prompt("Entrer le nom du joueur 2");
+      let playerOneName = prompt("Entrer le nom du joueur 1");
+      let playerTwoName = prompt("Entrer le nom du joueur 2");
 
     /* Generation du Plateau de jeu */
 
@@ -40,8 +40,8 @@ $(document).ready(function () {
 
     /* Generation des Stats */
 
-    let playerStatOne = new playerStat(1, "Valentin", couteau.nom, couteau.degats, playerOne.vie);
-    let playerStatTwo = new playerStat(2, "Alan", couteau.nom, couteau.degats, playerTwo.vie);
+    let playerStatOne = new playerStat(1, playerOneName, couteau.nom, couteau.degats, playerOne.vie);
+    let playerStatTwo = new playerStat(2, playerTwoName, couteau.nom, couteau.degats, playerTwo.vie);
 
     game.playerStat(playerStatOne);
     game.playerStat(playerStatTwo);
@@ -55,6 +55,11 @@ $(document).ready(function () {
 
     $(document).on("click", ".move", function () {
 
+        /* Audio */
+
+        let move = new Audio('./audio/move.mp3');
+        move.play();
+
         $(".move").removeClass("move");
 
         /* Deplacement des Joueurs */
@@ -66,42 +71,33 @@ $(document).ready(function () {
             gameFunction.playerDisplacement("playerTwo", "playerOne", $(this));
         }
 
+        /* Action au ramassage des armes */
+
+        if ($(this).hasClass("weapon")) {
+
+            if ($(this).hasClass("playerOne"))
+            {
+                gameFunction.playerWeapon(".joueurArme1", ".degatsArme1", $(this), fusil, fusilaPompe, lanceRoquette, couteau);
+            } else {
+                gameFunction.playerWeapon(".joueurArme2", ".degatsArme2", $(this), fusil, fusilaPompe, lanceRoquette, couteau);
+            }
+        }
 
 
+        game.selectMoveBox();
+
+
+        /* Si les joueurs sont cote à cote on lance le combat */
 
         let idPlayer = parseInt($(".playerOne").attr("id"));
 
-        /* Si les joueurs sont cote à cote on lance le combat */
 
         if (($(`#${idPlayer + 1}`).hasClass("playerTwo")) || ($(`#${idPlayer - 1}`).hasClass("playerTwo")) || ($(`#${idPlayer + 10}`).hasClass("playerTwo")) || ($(`#${idPlayer - 10}`).hasClass("playerTwo")))
         {
             /* Fonction de combat */
 
-
-            gameFunction.playerFight();
-
-
-        } else {
-
-            /* Action au ramassage des armes */
-
-            if ($(this).hasClass("weapon")) {
-
-
-                /* Joueur 1 */
-                if ($(this).hasClass("playerOne"))
-                {
-                    gameFunction.playerWeapon(".joueurArme1", ".degatsArme1", $(this));
-                } else {
-                    gameFunction.playerWeapon(".joueurArme2", ".degatsArme2", $(this));
-                }
-            }
-
-
-
-
-            game.selectMoveBox();
-
+            gameFunction.playerFight("playerOne");
+            $(".move").removeClass("move");
 
         }
 
